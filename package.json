@@ -1,0 +1,27 @@
+{
+  "name": "reaction-role",
+  "version": "1.0.0",
+  "description": "Here is an example of a Discord Reaction Role Bot.\n",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.js",
+    "test:lint": "./node_modules/.bin/eslint ."
+  },
+  "keywords": ["discord", "bot", "reaction role"],
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "author": "SFallTech",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SFallTech/ReactionRole-Example/issues"
+  },
+  "homepage": "https://github.com/SFallTech/ReactionRole-Example#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.2"
+  }
+}
