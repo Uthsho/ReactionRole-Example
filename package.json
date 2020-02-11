@@ -1,6 +1,6 @@
 {
   "name": "reaction-role",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Here is an example of a Discord Reaction Role Bot.",
   "main": "main.js",
   "scripts": {
