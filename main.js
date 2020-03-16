@@ -1,4 +1,4 @@
-if (Number(process.version.slice(1).split('.')[0]) < 10) throw new Error('Node 10.0.0 or higher is required. Update Node on your system.');
+if (Number(process.version.slice(1).split('.')[0]) < 12) throw new Error('Node 12.0.0 or newer is required. Update Node on your system.');
 
 const { Client, Collection } = require('discord.js');
 const { readdirSync } = require('fs');
@@ -12,7 +12,7 @@ class ReactionRole extends Client {
   constructor() {
     super();
 
-    this.config = require('./config.js');
+    this.config = require('./config');
 
     /** @type {import("./utils/index.js").Utils} */
     this.utils = require('./utils');

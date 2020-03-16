@@ -35,7 +35,7 @@ class Logger {
    */
   static log(...args) {
     args = this.formatInput(args);
-    console.log(`${chalk.red('[INFO]')} - [${this.date}] - - ${args.join(' ')}`);
+    console.log(`${chalk.green('[INFO]')} - [${this.date}] - ${args.join(' ')}`);
   }
 
   /**
@@ -46,7 +46,7 @@ class Logger {
    */
   static warn(...args) {
     args = this.formatInput(args);
-    console.warn(`${chalk.red('[WARN]')} - [${this.date}] - - ${args.join(' ')}`);
+    console.warn(`${chalk.yellow('[WARN]')} - [${this.date}] - ${args.join(' ')}`);
   }
 
   /**
@@ -57,7 +57,7 @@ class Logger {
    */
   static error(...args) {
     args = this.formatInput(args);
-    console.error(`${chalk.red('[ERROR]')} - [${this.date}] - - ${args.join(' ')}`);
+    console.error(`${chalk.red('[ERROR]')} - [${this.date}] - ${args.join(' ')}`);
   }
 }
 

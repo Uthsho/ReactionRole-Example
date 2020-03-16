@@ -17,20 +17,20 @@ class Help extends Command {
 
       fields.push({
         name: 'General',
-        value: context.client.commands.filter((filters) => filters.help.category === 'General').map((name) => name.help.name).map(name => `\`${name}\``).join(', ')
+        value: context.client.commands.filter((filters) => filters.help.category === 'General').map((name) => name.help.name).map((name) => `\`${name}\``).join(', ')
       });
 
       context. message.channel.send({
         embed: {
           author: {
             name: `${context.client.user.username}'s commands list`,
-            icon_url: context.client.user.displayAvatarURL
+            icon_url: context.client.user.displayAvatarURL()
           },
-          color: 0x6864ff,
+          color: 6841599,
           description: `Use \`${context.client.config.bot.prefix}help <command>\` for details. | ${context.client.commands.size} commands.`,
           footer: {
             text: context.client.user.username,
-            icon_url: context.client.user.displayAvatarURL
+            icon_url: context.client.user.displayAvatarURL()
           },
           fields: fields
         }
@@ -44,10 +44,10 @@ class Help extends Command {
           embed: {
             author: {
               name: `Command: ${command.help.name}`,
-              icon_url: context.client.user.displayAvatarURL
+              icon_url: context.client.user.displayAvatarURL()
             },
             color: 0x6864ff,
-            description: `__\`Description:\`__ ${command.help.description}\n  \n__\`Usage:\`__ ${command.help.usage}\n  \n__\`Alises:\`__ ${command.conf.aliases.join(', ')}`
+            description: `__\`Description:\`__ ${command.help.description}\n  \n__\`Usage:\`__ ${command.help.usage}\n  \n__\`Aliases:\`__ ${command.conf.aliases.join(', ')}`
           }
         });
       }
