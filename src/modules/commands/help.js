@@ -17,34 +17,34 @@ class Help extends Command {
 
 			fields.push({
 				name: 'General',
-				value: context.client.commands.filter((filters) => filters.help.category === 'General').map((name) => name.help.name).map((name) => `\`${name}\``).join(', ')
+				value: this.client.commands.filter((filters) => filters.help.category === 'General').map((command) => command.help.name).map((name) => `\`${name}\``).join(', ')
 			});
 
-			context. message.channel.send({
+			context.message.channel.send({
 				embed: {
 					author: {
-						name: `${context.client.user.username}'s commands list`,
-						icon_url: context.client.user.displayAvatarURL()
+						name: `${this.client.user.username}'s commands list`,
+						icon_url: this.client.user.displayAvatarURL()
 					},
 					color: 6841599,
-					description: `Use \`${context.client.config.bot.prefix}help <command>\` for details. | ${context.client.commands.size} commands.`,
+					description: `Use \`${this.client.config.bot.prefix}help <command>\` for details. | ${this.client.commands.size} commands.`,
 					footer: {
-						text: context.client.user.username,
-						icon_url: context.client.user.displayAvatarURL()
+						text: this.client.user.username,
+						icon_url: this.client.user.displayAvatarURL()
 					},
 					fields: fields
 				}
 			});
 		} else {
 			let command = context.message.args[0];
-			if (context.client.commands.has(command)) {
-				command = context.client.commands.get(command);
+			if (this.client.commands.has(command)) {
+				command = this.client.commands.get(command);
 
 				context.message.channel.send({
 					embed: {
 						author: {
 							name: `Command: ${command.help.name}`,
-							icon_url: context.client.user.displayAvatarURL()
+							icon_url: this.client.user.displayAvatarURL()
 						},
 						color: 0x6864ff,
 						description: `__\`Description:\`__ ${command.help.description}\n  \n__\`Usage:\`__ ${command.help.usage}\n  \n__\`Aliases:\`__ ${command.conf.aliases.join(', ')}`

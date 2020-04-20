@@ -12,10 +12,10 @@ class Setup extends Command {
 	}
 
 	run(context) {
-		const configuration = context.client.config.setup.roles.map((role, emote) => {
+		const configuration = this.client.config.setup.roles.map((role, emote) => {
 			return {
 				role: role,
-				emoji: context.client.config.setup.emotes[emote]
+				emoji: this.client.config.setup.emotes[emote]
 			};
 		});
 		const embed = {
@@ -31,15 +31,15 @@ class Setup extends Command {
 		for (const { role, emoji } of configuration) {
 			if (!context.message.guild.roles.cache.find((r) => r.name === role)) return context.message.channel.send(`The role \`${role}\` doesn't exist.`);
 
-			const guildEmoji = context.client.emojis.cache.find((emote) => emote.name === emoji);
+			const guildEmoji = this.client.emojis.cache.find((emote) => emote.name === emoji);
 
 			if (!guildEmoji) embed.embed.fields.push({ name: role, value: `React to ${emoji} to get the \`${role}\` role.` });
 			else embed.embed.fields.push({ name: role, value: `React to ${guildEmoji} to get the **"${role}"** role.` });
 		}
 
 		context.message.channel.send(embed).then(async (msg) => {
-			for (const emoji of context.client.config.setup.emotes) {
-				const guildEmoji = context.client.emojis.cache.find((emote) => emote.name === emoji);
+			for (const emoji of this.client.config.setup.emotes) {
+				const guildEmoji = this.client.emojis.cache.find((emote) => emote.name === emoji);
 
 				if (!guildEmoji) await msg.react(emoji);
 				else await msg.react(guildEmoji.id);
