@@ -1,8 +1,16 @@
 if (Number(process.version.slice(1).split('.')[0]) < 12) throw new Error('Node 12.0.0 or newer is required. Update Node on your system.');
 
 const { Client, Collection } = require('discord.js');
-const { readdirSync } = require('fs');
+const { readdir } = require('fs').promises;
 const { join } = require('path');
+
+/**
+ * @typedef {Object} ReactionRole
+ * @prop {Map<string, string>} commands
+ * @prop {Map<string, string>} aliases
+ * @prop {import("./config.js").Handlers} config The config file
+ * @prop {import("./utils/index.js").Utils} utils Some util methods and classes
+ */
 
 /**
  * @class ReactionRole
@@ -11,29 +19,39 @@ const { join } = require('path');
 class ReactionRole extends Client {
 	constructor() {
 		super();
+		/** @type {Map<string, string>} */
+		this.commands = new Collection(undefined);
+		/** @type {Map<string, string>} */
+		this.aliases = new Collection(undefined);
 
+		/** @type {import("./config.js")} */
 		this.config = require('./config');
-
 		/** @type {import("./utils").Utils} */
 		this.utils = require('./utils');
-		this.run()
-	}
 
-	run() {
-		this.commands = new Collection();
-		this.aliases = new Collection();
-		this._commandsLoader();
-		this._eventsLoader();
-		this.login(this.config.bot.token);
+		this._run()
 	}
 
 	/**
-   * @description Load all commands modules
-   * @private
-   */
-	_commandsLoader() {
+	 * @description Connects the Client to a Websocket
+	 * @private
+	 * @returns {void}
+	 */
+	_run() {
+		this._commandsLoader();
+		this._eventsLoader();
+
+		this.login(this.config.bot.token).then(() => this.utils.Logger.log('WebSocket Connected'));
+	}
+
+	/**
+	 * @description Load all categories and commands modules
+	 * @private
+	 * @returns {void}
+	 */
+	async _commandsLoader() {
 		let commandsLength = 0;
-		const commands = readdirSync(join(__dirname, '/modules/commands'));
+		const commands = await readdir(join(__dirname, '/modules/commands'));
 		commandsLength = commandsLength + commands.length;
 		commands.forEach((cmd) => {
 			try {
@@ -44,19 +62,20 @@ class ReactionRole extends Client {
 					this.aliases.set(alias, command.help.name);
 				});
 			} catch (error) {
-				return this.utils.Logger.error(`[Commands] Failed to load command ${cmd}: ${error}`);
+				return this.utils.Logger.error(`[Commands] Failed to load command ${cmd}: ${error || error.stack}`);
 			}
 		});
 		return this.utils.Logger.log(`[Commands] - Loaded ${this.commands.size}/${commandsLength} commands.`);
 	}
 
 	/**
-   * @description Load all events modules
-   * @private
-   */
-	_eventsLoader() {
+	 * @description Load all events modules
+	 * @private
+	 * @returns {void}
+	 */
+	async _eventsLoader() {
 		let eventLoadedLength = 0;
-		const events = readdirSync(join(__dirname, '/modules/events'));
+		const events = await readdir(join(__dirname, '/modules/events'));
 		events.forEach((file) => {
 			try {
 				eventLoadedLength++;
@@ -68,17 +87,13 @@ class ReactionRole extends Client {
 				return this.utils.Logger.error(`[Events] - Failed to load event ${file}: ${error}`);
 			}
 		});
-		return this.utils.Logger.log(`[Events] - Loaded ${eventLoadedLength}/${events.length} events.`);
+
+		this.utils.Logger.log(`[Events] - Loaded ${eventLoadedLength}/${events.length} events.`);
+
+		process.on('uncaughtException', (error) => this.utils.Logger.error(error.stack));
+
+		process.on('unhandledRejection', (error) => this.utils.Logger.error(error.stack));
 	}
 }
 
-process.on('uncaughtException', (err) => {
-	console.error('Uncaught Exception: ', err);
-	process.exit(1);
-});
-
-process.on('unhandledRejection', (err) => {
-	console.error('Uncaught Promise Error: ', err);
-});
-
-module.exports.client = new ReactionRole();
+module.exports = new ReactionRole();
