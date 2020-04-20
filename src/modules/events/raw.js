@@ -11,7 +11,7 @@ module.exports = class {
 	}
 
 	async run(event) {
-		if (!events.hasOwnProperty(event.t)) return;
+		if (!Object.hasOwnProperty.call(events, event.t)) return;
 
 		const { d: data } = event;
 		const user = this.client.users.cache.get(data.user_id);
