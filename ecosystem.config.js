@@ -1,8 +1,8 @@
 module.exports = {
-  apps: [
-    {
-      name: 'reaction-role',
-      script: './main.js'
-    }
-  ]
+	apps: [
+		{
+			name: 'reaction-role',
+			script: './src/main.js'
+		}
+	]
 };
