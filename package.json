@@ -1,34 +1,29 @@
 {
-  "name": "reaction-role",
-  "version": "1.1.1",
-  "description": "Here is an example of a Discord Reaction Role Bot.",
-  "main": "main.js",
-  "scripts": {
-    "start": "node .",
-    "start:staging": "pm2 start",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "keywords": [
-    "discord",
-    "bot",
-    "reaction role"
-  ],
-  "engines": {
-    "node": ">=10.0.0"
-  },
-  "author": "SFallTech",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/SFallTech/ReactionRole-Example/issues"
-  },
-  "homepage": "https://github.com/SFallTech/ReactionRole-Example#readme",
-  "dependencies": {
-    "discord.js": "^12.0.2",
-    "eslint": "^6.8.0"
-  },
-  "devDependencies": {
-    "chalk": "^3.0.0",
-    "dateformat": "^3.0.3"
-  }
+	"name": "reaction-role",
+	"version": "1.1.3",
+	"description": "Here is an example of a Discord Reaction Role Bot.",
+	"main": "main.js",
+	"scripts": {
+		"start": "node .",
+		"start:staging": "pm2 start",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
+	},
+	"keywords": [
+		"discord",
+		"bot",
+		"reaction role"
+	],
+	"author": "SFallTech",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/SFallTech/ReactionRole-Example/issues"
+	},
+	"homepage": "https://github.com/SFallTech/ReactionRole-Example#readme",
+	"dependencies": {
+		"chalk": "^4.0.0",
+		"dateformat": "^3.0.3",
+		"discord.js": "^12.2.0",
+		"eslint": "^6.8.0"
+	}
 }
