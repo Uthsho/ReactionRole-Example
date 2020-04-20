@@ -1,5 +1,3 @@
-'use strict';
-
 const chalk = require('chalk');
 const dateFormat = require('dateformat');
 const util = require('util');
